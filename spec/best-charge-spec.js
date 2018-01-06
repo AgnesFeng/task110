@@ -1,6 +1,6 @@
 
-const bestCharge = require('../src/best-charge');
-
+//const bestCharge = require('../src/best-charge');
+//let expect = require("chai").expect;
 describe('Take out food', function () {
   it('should generate best charge when best is 指定菜品半价', function() {
     let inputs = ["ITEM0001 x 1", "ITEM0013 x 2", "ITEM0022 x 1"];
@@ -16,8 +16,10 @@ describe('Take out food', function () {
 -----------------------------------
 总计：25元
 ===================================`;
-    expect(summary).toEqual(expected)
+    expect(summary).toEqual(expected)   //用其他方法测要改成to.equal
   });
+
+
 
   it('should generate best charge when best is 满30减6元', function() {
     let inputs2 = ["ITEM0013 x 4", "ITEM0022 x 1"];
@@ -34,17 +36,18 @@ describe('Take out food', function () {
 ===================================`;
     expect(summary).toEqual(expected1)
   });
-//
-//   it('should generate best charge when no promotion can be used', function() {
-//     let inputs = ["ITEM0013 x 4"];
-//     let summary = bestCharge(inputs);
-//     let expected = `
-// ============= 订餐明细 =============
-// 肉夹馍 x 4 = 24元
-// -----------------------------------
-// 总计：24元
-// ===================================`;
-//     expect(summary).toEqual(expected)
-//   });
+
+
+  it('should generate best charge when no promotion can be used', function() {
+    let inputs = ["ITEM0013 x 4"];
+    let summary = bestCharge(inputs);
+    let expected = `
+============= 订餐明细 =============
+肉夹馍 x 4 = 24元
+-----------------------------------
+总计：24元
+===================================`;
+    expect(summary).toEqual(expected)
+  });
 
 });

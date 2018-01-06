@@ -5,23 +5,28 @@ let inputs3 = ["ITEM0013 x 4"];
 let arrBuy = [];
 let sumOut;
 let strCut;
-let priceAndName = {cutType1:0,
-                    cutType2:0,
-                    name:[],
-                    sumOut:0,
-                    type:0};
-module.exports =
-function bestCharge(selectedItems) {
+let priceAndName = {};
+//module.exports =
+  function bestCharge(selectedItems) {
   //得到点单商品属性
-  let arrBuyOut = getObjectBuy(selectedItems);
+    priceAndName = {cutType1:0,
+      cutType2:0,
+      name:[],
+      sumOut:0,
+      type:0};
+  let arrBuyOut=0;
+    arrBuyOut = getObjectBuy(selectedItems);
   sumOut = CountAllObjetsPrices(arrBuyOut);  //没有优惠时候的输出
   countCheper(sumOut,arrBuyOut);
-  let str1 = printBuy(arrBuyOut);
-  let str2 = printYouHui(priceAndName,sumOut);
-  let strAll = '\n============= 订餐明细 =============\n'+ str1 +'\n-----------------------------------'+ str2;
+  let str1 = '';
+  str1 = printBuy(arrBuyOut);
+  let str2 ='';
+  str2 = printYouHui(priceAndName,sumOut);
+  let strAll = '';
+  strAll = '\n============= 订餐明细 =============\n'+ str1 +'\n-----------------------------------'+ str2;
   console.log(strAll);
   return  strAll;
-};
+}
 //bestCharge(inputs1);
 
 //let selectedItems = inputs2;
@@ -29,6 +34,7 @@ function bestCharge(selectedItems) {
 //得到点单商品属性
 function getObjectBuy(inputs){
   let obj = {};
+  arrBuy = [];
   for (var i = 0; i < inputs.length; i++) {
     obj = loadAllItems().filter(function (temp) {
       return (temp.id === inputs[i].slice(0,8))
@@ -94,10 +100,12 @@ function printYouHui(priceAndName,sumOut){
     priceAndName.sumOut = sumOut;
     strCut = '';
   }else if(priceAndName.type === 1){
+    strCut = '';
     strCut = '\n使用优惠:\n满30减6元，省'+priceAndName.cutType1+'元\n-----------------------------------'
   }else if(priceAndName.type === 2){
     let strName = priceAndName.name.join('，');
     console.log(strName);
+    strCut = '';
     strCut = '\n使用优惠:\n指定菜品半价('+ strName +')，省'+ priceAndName.cutType2 +'元\n-----------------------------------'
   }
   strCut = strCut + '\n总计：'+ priceAndName.sumOut +'元\n===================================';
@@ -112,7 +120,8 @@ function printYouHui(priceAndName,sumOut){
 //打印购买的商品
 function printBuy(arrBuy) {
   let result = arrBuy.map(function (temp) {
-    let strBuy = temp.name +' x '+ temp.num + ' = ' +
+    let strBuy ='';
+    strBuy = temp.name +' x '+ temp.num + ' = ' +
       temp.sumPrice + '元';
     return strBuy;
   });
